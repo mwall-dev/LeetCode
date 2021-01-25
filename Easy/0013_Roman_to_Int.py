@@ -4,16 +4,16 @@
         - Straightforward
 
     Apporach 2: Pythonic though seems like a lot of string searches initially for the 
-                replaces.
+                replaces. See LeetCode answer. Basically replace all 4 and 9 cases with IIII or 9 I's
+                then just iterate though and use a dict for values.
+
+                
 
 
 
 
 
 """
-
-
-
 
 class Solution:
     def romanToInt(self, s: str) -> int:
