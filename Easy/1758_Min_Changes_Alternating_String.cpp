@@ -17,6 +17,11 @@
         
         Basically we know end string will either be  0101010... or 101010... Starting with 1 or 0.
         Try both ways and take min.
+        
+        
+    Approach 3: more optimised 
+    Dont need to do second run through. Second sweep res is just length - first_res.
+    
     
 */
 
@@ -43,8 +48,9 @@ public:
             return swaps;
         };
         
-            
-        return std::min(check_string(s, '0'), check_string(s, '1'));
+        int res = check_string(s, '0');
+        int n = s.length();
+        return std::min(res, n - res);
         
     }
 };
