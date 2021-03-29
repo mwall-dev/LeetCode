@@ -1,0 +1,73 @@
+/*
+    Notes:
+        position[i] represents the ith cars starting pos where 0 = no progress towards target
+        
+        v = x/t
+        speed = remaning distance/time 
+        With these and the data we can compute 
+        the hours remaining for each car (might not help).
+        
+        For two cars to catch up and form a fleet.
+        If behind and lower or equal to time with one ahead than will form a fleet.
+        Can do this greedily if we can start from cars at the furthest positions.
+        
+        
+    Approach:
+        - Insert all elements into a map with keys as positions and values as speed.
+        - Compute each cars time to go using remaming distance from target and its speed.
+        - Work from highest position and work downwards forming fleets if less than or equal too           time.
+        
+        
+    Debug:
+        - Ordering is important though as a car might be fast enough to reach a front fleet but 
+          it might have a slower car infront of it so they will form a new fleet.
+        - Need to store a fleet head as we may get faster cars in fleet in middle and then                 slower at back but these will still catch up to fleet if faster than front car as the           middle fast one will be limited to fronts speed.
+
+*/
+
+
+/*
+    Optimise:
+    Currently is O(nlogn) as we need to sort.
+    The ordering is important to be able to form fleets as fronts block off backs and so on.
+    Used Map and that was good for sorting but used alot of memory and time.
+    Slightly better time using just a vector of pairs <position, time> then sorting by position.
+    (position needed for sort using a custom lambda).
+
+
+*/
+
+
+
+
+
+class Solution {
+public:
+    int carFleet(int target, vector<int>& position, vector<int>& speed) {
+        if(position.empty()) return 0;
+        
+        vector<std::pair<int, double>> time_pos;
+        
+        
+        for(int i = 0; i < position.size(); ++i) {
+            time_pos.push_back({position[i], (target - position[i]) /(double)speed[i]});
+        }
+        
+        std::sort(time_pos.begin(), time_pos.end(),
+                  [](auto& p1, auto& p2){ return p1.first > p2.first;});
+                  
+        
+        int fleets = 1; // First car
+        double fleet_front = time_pos[0].second;
+        
+        for(int i = 1; i < time_pos.size(); ++i) {
+            if(time_pos[i].second > fleet_front) {
+                fleet_front = time_pos[i].second;
+                ++fleets;
+            }
+        }
+        
+        return fleets;
+    }
+};
+
