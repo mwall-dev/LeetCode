@@ -1,10 +1,10 @@
-
+ 
 
 
 class Solution {
 public:
     vector<int> indices; //Stores indices of same group. i.e islands.
-    vector<bool> visited;
+    vector<bool> visited; // Important so we only look at an island once.
     vector<vector<int>> adjList; // Not an adj_matrix but just each ele has a vector of nodes it has edges too.
     string indiceString; //Stores  string formed by indices in the same group.
     
