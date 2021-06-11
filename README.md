@@ -2,8 +2,8 @@
 
 ## Profile : https://leetcode.com/wallcode/
 
-## Easy - 66
+## Easy - 80
 
-## Medium - 39
+## Medium - 42
 
 ## Hard - 2 
