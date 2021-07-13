@@ -25,12 +25,6 @@
     Then assign length to be currentZero - lastZero + 1
     Now reassign lastZero.
 
-    
-
-
-
-
-
 */
 #include <vector>
 
