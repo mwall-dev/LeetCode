@@ -35,11 +35,51 @@
     Optimise:
         Answer is very good and beats 100% runtime and 98% memory. Just dont like the waste of checking each 3 for ./ or ..//
         Maybe check for a . first and add a name if not??? Made a little helper function to achieve this as the if-else logic is a bit shit.
+        1st solution is more clear though i think, no breaking DRY.
+
+
+
+        It was just the logic it seems. See below for a good example of better logic.
+        Treat everything between two slashes as a name and then check if its . or .. later.
+        Though roughly same time and more memory.
 
 
 
 
 */
+class Solution {
+public:
+    string simplifyPath(string path) {
+        vector<string>   nameVect;
+        string name;
+
+        path.push_back('/');
+        for(int i=0;i<path.size();i++){
+            if(path[i]=='/'){
+                if(name.size()==0)continue;
+                if(name==".."){		//special case 1：double dot，pop dir
+                    if(nameVect.size()>0)nameVect.pop_back();
+                }else if(name=="."){//special case 2:singel dot，don`t push
+                }else{
+                    nameVect.push_back(name);
+                }
+                name.clear();
+            }else{
+                name.push_back(path[i]);//record the name
+            }
+        }
+
+        string result;
+        if(nameVect.empty())return "/";
+        for(int i=0;i<nameVect.size();i++){
+            result.append("/"+nameVect[i]);
+        }
+        return result;
+    }
+};
+
+
+/*
 class Solution {
 public:
 
@@ -67,7 +107,7 @@ public:
 
             else if(path[i] == '.') {
                 // Extract next 3 chars and check for a ./ or ../
-                std::string check = path.substr(i, 3);
+               std::string check = path.substr(i, 3);
 
                 if (isPrefix("./", check)) {
                     // No need to do anything here or add to i. Just catch it.
@@ -91,10 +131,10 @@ public:
             }
 
 
-                // Going into a new directory, push onto stack.
+            // Going into a new directory, push onto stack.
             else {
                 add_folder(path, canonical, i);
-            }
+           }
         }
 
 
@@ -106,6 +146,8 @@ public:
 
 
 };
+
+*/
 
 
 /*
@@ -168,6 +210,4 @@ public:
         return canonical;
     }
 
-
-}; */
-
+};*/
